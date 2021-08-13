@@ -8,8 +8,9 @@ export default function SignUp() {
 
     let email = e.target.elements.email?.value;
     let password = e.target.elements.password?.value;
+    let firstName = e.target.element.firstname.value;
 
-    console.log(email, password);
+    console.log(email, password, firstName);
   };
   return (
     <div className='md:mt-6 lg:mt-4 h-screen flex bg-gray-bg1'>
