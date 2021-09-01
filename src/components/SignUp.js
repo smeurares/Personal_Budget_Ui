@@ -1,17 +1,36 @@
-import React from "react";
-import {Input} from 'reactstrap';
+import React, {useState} from "react";
+import Axios from "axios";
+
 
 export default function SignUp() {
   
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [registerName, setRegisterName] = useState("");
+  
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     let email = e.target.elements.email?.value;
     let password = e.target.elements.password?.value;
-    let firstName = e.target.element.firstname.value;
-
-    console.log(email, password, firstName);
+    
+    console.log(email, password);
   };
+
+  const register = () => {
+    Axios({
+      method: "POST",
+      data: {
+        email: registerEmail,
+        password: registerPassword,
+        name: registerName
+      },
+      withCredentials: true,
+      url: "/auth/signup",
+    }).then((res) => console.log(res));
+  };
+ 
   return (
     <div className='md:mt-6 lg:mt-4 h-screen flex bg-gray-bg1'>
       <div className='w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16 sm:mt-16'>
@@ -36,6 +55,7 @@ export default function SignUp() {
               className={`w-full p-2 mt-2 text-primary border bg-indigo-100 rounded-lg outline-none text-sm transition duration-150 ease-in-out mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
               id='email'
               placeholder='Your Email'
+              onChange={(e) => setRegisterEmail(e.target.value)}
             />
           </div>
           <div>
@@ -49,71 +69,27 @@ export default function SignUp() {
               className={`w-full p-2 mt-2 text-primary border bg-indigo-100 rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
               id='password'
               placeholder='Your Password'
+              onChange={(e) => setRegisterPassword(e.target.value)}
             />
           </div>
           <div>
             <label
-              htmlFor='firstname'
+              htmlFor='name'
               className='text-xl font-normal text-grey-600'>
-              First Name
+              Name
             </label>
             <input
               type='text'
               className={`w-full p-2 mt-2 text-primary border bg-indigo-100 rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
-              id='firstname'
-              placeholder='First Name'
+              id='name'
+              placeholder='Name'
+              onChange={(e) => setRegisterName(e.target.value)}
             />
-          </div>
-          <div>
-            <label
-              htmlFor='lastname'
-              className='text-xl font-normal text-grey-600'>
-              Last Name
-            </label>
-            <input
-              type='text'
-              className={`w-full p-2 mt-2 text-primary border bg-indigo-100 rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
-              id='lastname'
-              placeholder='Last Name'
-            />
-          </div>
-          <div>
-            <label htmlFor='dob' className='text-xl font-normal text-grey-600'>
-              Date of birth
-            </label>
-            <input
-              type='date'
-              className={`w-full p-2 mt-2 text-primary border bg-indigo-100 rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent`}
-              id='dob'
-            />
-          </div>
-          <div>
-            <label htmlFor='currentincome' className='text-xl font-normal text-grey-600'>
-              Current Income Level
-            </label>
-            <Input type='select' name='currentincome' id='currentincome' className='w-full p-2 mt-2 text-primary border bg-indigo-100 rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'>
-              <option>Low</option>
-              <option>Lower-middle</option>
-              <option>Upper-middle</option>
-              <option>High</option>
-              <option>Independent</option>
-            </Input>
-          </div>
-          <div>
-            <label htmlFor='desiredincome' className='text-xl font-normal text-grey-600'>
-              Desired Income Level
-            </label>
-            <Input type='select' name='desiredincome' id='desiredincome' className='w-full p-2 mt-2 text-primary border bg-indigo-100 rounded-md outline-none text-sm transition duration-150 ease-in-out mb-4 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent'>
-              <option>Low</option>
-              <option>Lower-middle</option>
-              <option>Upper-middle</option>
-              <option>High</option>
-              <option>Independent</option>
-            </Input>
           </div>
           <div className='flex justify-center items-center mt-6'>
             <button
-              className={`bg-indigo-600 hover:bg-indigo-900 p-2 pl-4 pr-4 rounded-md text-white`}>
+              className={`bg-indigo-600 hover:bg-indigo-900 p-2 pl-4 pr-4 rounded-md text-white`}
+              onClick={register}>
               Submit
             </button>
           </div>
