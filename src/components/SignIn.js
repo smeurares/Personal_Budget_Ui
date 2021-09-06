@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import Loading from "./Loading";
 
 export default function SignIn() {
-  const { login, setLoginEmail, setLoginPassword, isLoggedIn, loading,setLoading } =
+  const { login, setLoginEmail, setLoginPassword, loading,setLoading } =
     useGlobalContext();
   const history = useHistory();
 

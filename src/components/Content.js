@@ -1,47 +1,43 @@
-import { useState, useEffect } from "react";
-import store from 'storejs';
+import store from "storejs";
 import { useGlobalContext } from "../context";
 import Forbidden from "./Forbidden";
 import Loading from "./Loading";
+import Budget from "./Budget";
+
+import Envelopes from "./Envelopes";
+import ContentHeader from "./ContentHeader";
+import Data from "./Data";
 
 export default function Content() {
-  const {loading, isLoggedIn} = useGlobalContext();
-  const name = store('name')
-  const id = store('id')
+  const { loading, isLoggedIn, setBudget, budget, setEnvelopes, envelopes } = useGlobalContext();
+  const name = store("name");
+
+  
 
   if(!isLoggedIn){
-      return <Forbidden />
+    return <Forbidden />
   }
 
-  if(loading){
-      return <Loading />;
+  if (loading) {
+    return <Loading />;
   }
 
   return (
-    <div className='min-h-screen bg-gray-100 grid items-center justify-center'>
-      <div className='p-6 bg-white flex items-center space-x-6 rounded-lg shadow-md hover:scale-105 transition transform duration-500 cursor-pointer'>
-        <div>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-20 w-20 text-indigo-600'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke='currentColor'>
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z'
-            />
-          </svg>
-        </div>
-        <div>
-          <h1 className='text-xl font-bold text-gray-700 mb-2'>{name}</h1>
-          <p className='text-gray-600 w-80 text-sm'>
-            My id is {id}
-          </p>
-        </div>
+    <div className='bg-gray-100 h-screen'>
+      <div className='bg-gray-500 h-20 flex text-blue-50 text-xl md:text-2xl'>
+        <button onClick={() => setBudget(!budget)} className='m-auto hover:text-indigo-200'>Set budget</button>
+        <h1 className='m-auto'>Welcome to your budget, {name}!</h1>
+        <button onClick={() => setEnvelopes(!envelopes)} className='m-auto hover:text-indigo-200'>Add envelope</button>
       </div>
+      <ContentHeader/>
+
+      {budget && <Budget/>}
+
+      {envelopes && <Envelopes />}
+
+      <Data />
+      
     </div>
   );
+  
 }
