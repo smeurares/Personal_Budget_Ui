@@ -1,4 +1,4 @@
-import { BrowserRouter, BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./styles/index.css";
 import NavBar from "./components/NavBar";
@@ -6,11 +6,13 @@ import Header from "./components/Header";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Content from "./components/Content";
+
 function App() {
   return (
     
       <>
-        <NavBar />
+      <Router>
+      <NavBar />
         <Switch>
         <Route exact path='/'>
         <Header />
@@ -22,9 +24,11 @@ function App() {
           <SignUp/>
         </Route>
         <Route exact path='/content'>
-          <Content/>
+          <Content/> 
         </Route>
         </Switch>
+      </Router>
+        
         
       </>
     
