@@ -11,8 +11,11 @@ const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [income, setIncome] = useState();
   const [error, setError] = useState({ error: false, message: "" });
-  const [budget, setBudget] = useState(false)
-  const [envelopes, setEnvelopes] = useState(false)
+  const [budget, setBudget] = useState(false);
+  const [envelopes, setEnvelopes] = useState(false);
+  const [envelopeTitle, setEnvelopeTitle] = useState("");
+  const [envelopeBudget, setEnvelopeBudget] = useState("");
+  const [allEnvelopes, setAllEnvelopes] = useState();
 
   if (income <= 0) {
     setError({ error: true, message: "Your income must be positive!" });
@@ -46,6 +49,44 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  const addEnvelope = () => {
+    Axios({
+      method: "POST",
+      data: {
+        budget: envelopeBudget,
+        title: envelopeTitle,
+        userId: store("id"),
+      },
+      url: "/envelopes",
+    }).then((res) => {
+      const response = res;
+      console.log(response.data.envelopes);
+
+      setAllEnvelopes(response.data.envelopes);
+    });
+  };
+
+  const getAllEnvelopes = () => {
+    Axios({
+      method: "GET",
+      url: `/envelopes/${store("id")}`,
+    }).then((res) => {
+      const response = res;
+      console.log(response.data.envelopes);
+      setAllEnvelopes(response.data.envelopes);
+    });
+  };
+
+  const removeEnvelope = (id) => {
+    Axios({
+      method: "DELETE",
+      url: `/envelopes/${id}`,
+    }).then((res) => {
+      const response = res;
+      console.log(response.data.deletedEnvelope);
+    });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -65,7 +106,16 @@ const AppProvider = ({ children }) => {
         budget,
         setBudget,
         envelopes,
-        setEnvelopes
+        setEnvelopes,
+        addEnvelope,
+        setEnvelopeBudget,
+        setEnvelopeTitle,
+        envelopeTitle,
+        envelopeBudget,
+        getAllEnvelopes,
+        allEnvelopes,
+        setAllEnvelopes,
+        removeEnvelope,
       }}>
       {children}
     </AppContext.Provider>

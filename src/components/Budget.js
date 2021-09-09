@@ -1,4 +1,5 @@
 import { useGlobalContext } from "../context";
+import store from "storejs";
 
 export default function Budget() {
   const {income, setIncome, error, setError, setBudget} = useGlobalContext()
@@ -8,6 +9,7 @@ export default function Budget() {
    setBudget(false)
    setError({error: false, message: ''})
    setIncome(income)
+   store("income", income);
   }
 
   return (

@@ -4,11 +4,17 @@ import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../context";
+import store from "storejs";
 
 export default function NavBar() {
-  const { isLoggedIn, setIsLoggedIn } = useGlobalContext();
+  const {setIsLoggedIn } = useGlobalContext();
 
-  if (isLoggedIn) {
+  const handleLogOut = () =>{
+    setIsLoggedIn(false);
+    store.clear();
+  }
+
+  if (store("authenticated")) {
     return (
       <Popover className='relative bg-white'>
         <div className='mx-auto px-4 sm:px-6'>
@@ -38,7 +44,7 @@ export default function NavBar() {
               <Link
                 to='/login'
                 className='ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700'
-                onClick={() => setIsLoggedIn(false)}>
+                onClick={() => handleLogOut()}>
                 Log Out
               </Link>
             </div>

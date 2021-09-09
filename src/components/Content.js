@@ -7,14 +7,15 @@ import Budget from "./Budget";
 import Envelopes from "./Envelopes";
 import ContentHeader from "./ContentHeader";
 import Data from "./Data";
+import { useEffect } from "react";
 
 export default function Content() {
-  const { loading, isLoggedIn, setBudget, budget, setEnvelopes, envelopes } = useGlobalContext();
+  const { loading, setBudget, budget, setEnvelopes, envelopes, getAllEnvelopes} = useGlobalContext();
   const name = store("name");
 
   
 
-  if(!isLoggedIn){
+  if(!store("authenticated")){
     return <Forbidden />
   }
 
@@ -35,7 +36,7 @@ export default function Content() {
 
       {envelopes && <Envelopes />}
 
-      <Data />
+      {<Data/> }
       
     </div>
   );
