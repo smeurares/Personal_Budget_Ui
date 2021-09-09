@@ -8,11 +8,11 @@ export default function SignIn() {
   const history = useHistory();
 
   const handleFormSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     login();
-      history.push("/content");
-    setIsLoggedIn(true)
-    
+    history.push("/content");
+    setIsLoggedIn(true);
+
     console.log("here");
   };
 

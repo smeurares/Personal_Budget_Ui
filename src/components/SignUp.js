@@ -1,20 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 
-
 export default function SignUp() {
-  
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [registerName, setRegisterName] = useState("");
-  
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     let email = e.target.elements.email?.value;
     let password = e.target.elements.password?.value;
-    
+
     console.log(email, password);
   };
 
@@ -24,13 +21,13 @@ export default function SignUp() {
       data: {
         email: registerEmail,
         password: registerPassword,
-        name: registerName
+        name: registerName,
       },
       withCredentials: true,
       url: "/auth/signup",
     }).then((res) => console.log(res));
   };
- 
+
   return (
     <div className='md:mt-6 lg:mt-4 h-screen flex bg-gray-bg1'>
       <div className='w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16 sm:mt-16'>
@@ -73,9 +70,7 @@ export default function SignUp() {
             />
           </div>
           <div>
-            <label
-              htmlFor='name'
-              className='text-xl font-normal text-grey-600'>
+            <label htmlFor='name' className='text-xl font-normal text-grey-600'>
               Name
             </label>
             <input

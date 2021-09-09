@@ -7,12 +7,12 @@ import { useGlobalContext } from "../context";
 import store from "storejs";
 
 export default function NavBar() {
-  const {setIsLoggedIn } = useGlobalContext();
+  const { setIsLoggedIn } = useGlobalContext();
 
-  const handleLogOut = () =>{
+  const handleLogOut = () => {
     setIsLoggedIn(false);
     store.clear();
-  }
+  };
 
   if (store("authenticated")) {
     return (

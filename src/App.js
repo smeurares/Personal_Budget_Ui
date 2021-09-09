@@ -9,29 +9,25 @@ import Content from "./components/Content";
 
 function App() {
   return (
-    
-      <>
+    <>
       <Router>
-      <NavBar />
+        <NavBar />
         <Switch>
-        <Route exact path='/'>
-        <Header />
-        </Route>
-        <Route exact path='/login'>
-          <SignIn />
-        </Route>
-        <Route exact path='/signup'>
-          <SignUp/>
-        </Route>
-        <Route exact path='/content'>
-          <Content/> 
-        </Route>
+          <Route exact path='/'>
+            <Header />
+          </Route>
+          <Route exact path='/login'>
+            <SignIn />
+          </Route>
+          <Route exact path='/signup'>
+            <SignUp />
+          </Route>
+          <Route exact path='/content'>
+            <Content />
+          </Route>
         </Switch>
       </Router>
-        
-        
-      </>
-    
+    </>
   );
 }
 

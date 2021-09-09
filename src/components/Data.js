@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Axios from "axios";
 
 import { useGlobalContext } from "../context";
@@ -23,7 +23,6 @@ const Data = () => {
   });
 
   const [unitPrice, setUnitPrice] = useState(null);
- 
 
   const onEditBudget = ({ id, currentUnitPrice }) => {
     setInEditMode({
@@ -34,20 +33,19 @@ const Data = () => {
   };
 
   const updateInventoryBudget = ({ id, newUnitPrice }) => {
-      Axios({
-        method: "PUT",
-        data: {
-         budget: newUnitPrice
-        },
-        url: `/envelopes/${id}`,
-      }).then((res) => {
-        const response = res;
-        console.log(response.updated);
-        onCancel();
-        getAllEnvelopes()
-    })
-  }
-  
+    Axios({
+      method: "PUT",
+      data: {
+        budget: newUnitPrice,
+      },
+      url: `/envelopes/${id}`,
+    }).then((res) => {
+      const response = res;
+      console.log(response.updated);
+      onCancel();
+      getAllEnvelopes();
+    });
+  };
 
   const onSave = ({ id, newUnitPrice }) => {
     updateInventoryBudget({ id, newUnitPrice });
@@ -66,15 +64,18 @@ const Data = () => {
   const renderHeader = () => {
     let headerElement = ["title", "budget", "actions"];
 
-    return allEnvelopes && headerElement.map((key, index) => {
-      return (
-        <th
-          className='text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600'
-          key={index}>
-          {key.toUpperCase()}
-        </th>
-      );
-    });
+    return (
+      allEnvelopes &&
+      headerElement.map((key, index) => {
+        return (
+          <th
+            className='text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600'
+            key={index}>
+            {key.toUpperCase()}
+          </th>
+        );
+      })
+    );
   };
 
   const renderBody = () => {
@@ -130,12 +131,16 @@ const Data = () => {
               ) : (
                 <button
                   className='px-2 py-2 bg-green-500 rounded-md hover:bg-green-700'
-                  onClick={() => onEditBudget({ id: id, currentUnitPrice: budget })}>
+                  onClick={() =>
+                    onEditBudget({ id: id, currentUnitPrice: budget })
+                  }>
                   Edit
                 </button>
               )}
               |
-              <button className='px-2 py-2 bg-red-500 rounded-md hover:bg-red-700' onClick={() => deleteEnvelope(id)}>
+              <button
+                className='px-2 py-2 bg-red-500 rounded-md hover:bg-red-700'
+                onClick={() => deleteEnvelope(id)}>
                 Delete
               </button>
             </td>

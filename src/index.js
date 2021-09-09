@@ -2,16 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./styles/tailwind.css";
 import App from "./App";
-import { BrowserRouter} from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { AppProvider } from "./context";
 
 ReactDOM.render(
   <React.StrictMode>
     <AppProvider>
       <BrowserRouter>
-      <App />
+        <App />
       </BrowserRouter>
-     
     </AppProvider>
   </React.StrictMode>,
   document.getElementById("root")
