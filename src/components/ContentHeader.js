@@ -1,7 +1,14 @@
 import { useGlobalContext } from "../context";
+import store from "storejs";
+import { useEffect } from "react";
 
 export default function ContentHeader() {
-  const {income} = useGlobalContext()
+  const {income, getAllEnvelopes, allEnvelopes} = useGlobalContext()
+
+  useEffect(() => {
+   return () => getAllEnvelopes()
+  },[] )
+  
   return (
     <div className='sm:flex sm:justify-center bg-gray-100 py-10 p-14'>
       <div className='container mb-4 mx-auto pr-4'>
@@ -12,7 +19,7 @@ export default function ContentHeader() {
           <div className='flex justify-between px-5 pt-6 mb-2 text-sm text-gray-600'>
             <p>TOTAL</p>
           </div>
-          <p className='py-4 text-3xl ml-5'>{income || 0} $</p>
+          <p className='py-4 text-3xl ml-5'>{income || store("income")} $</p>
           <hr />
         </div>
       </div>
@@ -38,7 +45,7 @@ export default function ContentHeader() {
           <div className='flex justify-between px-5 pt-6 mb-2 text-sm text-gray-600'>
             <p>TOTAL</p>
           </div>
-          <p className='py-4 text-3xl ml-5'>0</p>
+          <p className='py-4 text-3xl ml-5'>{allEnvelopes ? allEnvelopes.length : "0"}</p>
           <hr />
         </div>
       </div>

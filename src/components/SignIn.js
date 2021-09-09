@@ -3,16 +3,15 @@ import { useHistory } from "react-router-dom";
 import Loading from "./Loading";
 
 export default function SignIn() {
-  const { login, setLoginEmail, setLoginPassword, loading,setLoading } =
+  const { login, setLoginEmail, setLoginPassword, loading, setIsLoggedIn } =
     useGlobalContext();
   const history = useHistory();
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
     login();
-    setLoading(true)
       history.push("/content");
-
+    setIsLoggedIn(true)
     
     console.log("here");
   };
